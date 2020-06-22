@@ -10,27 +10,27 @@ import (
 )
 
 const (
-	defaultDuration = time.Duration(25 * time.Minute)
+	defaultDuration     = time.Duration(25 * time.Minute)
 	defaultRestDuration = time.Duration(5 * time.Minute)
-	tickInterval    = time.Duration(50 * time.Millisecond)
-	renderInterval  = time.Duration(100 * time.Millisecond)
+	tickInterval        = time.Duration(100 * time.Millisecond)
+	renderInterval      = time.Duration(100 * time.Millisecond)
 )
 
 type Core struct {
-	presenter presenter.Presenter
-	ticking bool
-	lastStart time.Time
-	lastDuration time.Duration
+	presenter     presenter.Presenter
+	ticking       bool
+	lastStart     time.Time
+	lastDuration  time.Duration
 	timeRemaining time.Duration
-	status status.Status
+	status        status.Status
 }
 
 func startTick(c *Core) {
 	for {
 		if c.ticking == true {
 			c.tick()
-			time.Sleep(tickInterval)
 		}
+		time.Sleep(tickInterval)
 	}
 }
 
@@ -48,7 +48,6 @@ func (c *Core) SetDuration(d time.Duration) {
 }
 
 func NewCore(pres presenter.Presenter) *Core {
-
 
 	pres.SetStatus(status.PausedWork)
 

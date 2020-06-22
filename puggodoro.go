@@ -1,6 +1,8 @@
 package main
 
 import (
+	"time"
+
 	"github.com/arizard/pug-go-doro/controller"
 	event "github.com/arizard/pug-go-doro/controller/event"
 	"github.com/arizard/pug-go-doro/core"
@@ -13,7 +15,7 @@ func main() {
 	var pres presenter.Presenter = presenter.NewTerminal(ctrl)
 	defer pres.Close()
 
-	var core *core.Core = core.NewCore(pres);
+	var core *core.Core = core.NewCore(pres)
 
 	for {
 		ctrlEvent := ctrl.Listen()
@@ -29,5 +31,7 @@ func main() {
 		if ctrlEvent.Kind == event.Skip {
 			core.Skip()
 		}
+
+		time.Sleep(time.Duration(5 * time.Millisecond))
 	}
 }
